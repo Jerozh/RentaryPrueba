@@ -1,11 +1,11 @@
-FROM maven:3.8.6-eclipse-temurin-17 AS build
-WORKDIR /workspace
-COPY . .
-RUN mvn clean package -DskipTests -Dproject.build.sourceEncoding=UTF-8
+FROM maven:3.8.4-openjdk-17 AS build
 
-FROM eclipse-temurin:17-jre-alpine
-VOLUME /tmp
-RUN apk add --no-cache curl
-COPY --from=build /workspace/target/backend-0.0.1-SNAPSHOT.jar app.jar
+WORKDIR /app
+COPY backend /app
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+CMD ["java", "-jar", "app.jar"]
