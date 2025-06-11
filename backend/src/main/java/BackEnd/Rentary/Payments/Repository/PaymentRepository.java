@@ -1,5 +1,6 @@
 package BackEnd.Rentary.Payments.Repository;
 
+import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Payments.Entities.Payment;
 import BackEnd.Rentary.Payments.Enums.PaymentStatus;
 import BackEnd.Rentary.Payments.Enums.ServiceType;
@@ -12,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -40,4 +42,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Page<Payment> findByCreatedByAndServiceType(String createdBy, ServiceType serviceType, Pageable pageable);
 
     List<Payment> findByStatus(PaymentStatus paymentStatus);
+
+    boolean existsByContractAndDueDate(Contract contract, LocalDate dueDate);
+
 }

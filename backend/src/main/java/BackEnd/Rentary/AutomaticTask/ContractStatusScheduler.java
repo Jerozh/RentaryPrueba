@@ -1,4 +1,4 @@
-package BackEnd.Rentary.Contracts.Service;
+package BackEnd.Rentary.AutomaticTask;
 
 import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Contracts.Respository.IContractRepository;
@@ -11,7 +11,6 @@ import BackEnd.Rentary.Properties.Enums.PropertyStatus;
 import BackEnd.Rentary.Properties.Repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +26,7 @@ public class ContractStatusScheduler {
     private final PaymentRepository paymentRepository;
 
     @Transactional
-    @Scheduled(cron = "0 0 3 * * ?", zone = "UTC")
+    @Scheduled(cron = "0 0 4 * * ?", zone = "UTC")
     public void updateContractStatus() {
         List<Contract> activeContracts = contractRepository.findByActiveTrue();
         LocalDate today = LocalDate.now();

@@ -4,7 +4,7 @@ package BackEnd.Rentary.BCRA.Controller;
 import BackEnd.Rentary.BCRA.DTO.BcraResponse;
 import BackEnd.Rentary.BCRA.DTO.BcraResult;
 import BackEnd.Rentary.BCRA.Service.BcraApiService;
-import BackEnd.Rentary.BCRA.Service.RentUpdateService;
+import BackEnd.Rentary.AutomaticTask.Service.RentUpdateService;
 import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Contracts.Enums.AdjustmentType;
 import BackEnd.Rentary.Contracts.Respository.IContractRepository;
