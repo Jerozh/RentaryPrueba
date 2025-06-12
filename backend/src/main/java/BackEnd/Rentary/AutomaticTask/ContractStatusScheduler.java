@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,22 +22,29 @@ public class ContractStatusScheduler {
     private final PropertyRepository propertyRepository;
 
     @Transactional
-    @Scheduled(cron = "0 0 4 * * ?", zone = "UTC")
+    @Scheduled(cron = "0 0 6 * * ?", zone = "UTC")
     public void updateContractStatus() {
         List<Contract> activeContracts = contractRepository.findByActiveTrue();
         LocalDate today = LocalDate.now();
+        List<Contract> contractsToSave = new ArrayList<>();
+        List<Property> propertiesToSave = new ArrayList<>();
 
         for (Contract contract : activeContracts) {
             if (!contract.getEndDate().isAfter(today)) {
                 contract.setActive(false);
-                contractRepository.save(contract);
+                contractsToSave.add(contract);
 
                 Property property = contract.getProperty();
                 property.setStatus(PropertyStatus.DISPONIBLE);
-                propertyRepository.save(property);
+                propertiesToSave.add(property);
             }
         }
-
+        if(!contractsToSave.isEmpty()){
+            contractRepository.saveAll(contractsToSave);
+        }
+        if (!propertiesToSave.isEmpty()) {
+        propertyRepository.saveAll(propertiesToSave);
+        }
     }
 }
 

@@ -23,7 +23,7 @@ import static BackEnd.Rentary.AutomaticTask.Service.RentAdjustmentUtils.shouldAd
 
 @Service
 @RequiredArgsConstructor
-public class CreatePaymentScheduler {
+public class PaymentsCreateScheduler {
     private final IContractRepository contractRepository;
     private final PaymentRepository paymentRepository;
 

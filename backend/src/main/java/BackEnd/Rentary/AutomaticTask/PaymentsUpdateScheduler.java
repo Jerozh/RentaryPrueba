@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SchedulerUpdatePayments {
+public class PaymentsUpdateScheduler {
 
     private final PaymentRepository paymentRepository;
 

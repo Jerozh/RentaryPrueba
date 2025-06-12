@@ -23,5 +23,6 @@ public record ContractResponse(
         boolean active,
         double adjustmentPercentage,
         String adjustmentType,
-        List<DocumentDto> documents
+        List<DocumentDto> documents,
+        LocalDate lastAdjustmentDate
 ) {}

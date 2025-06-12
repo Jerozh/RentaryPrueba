@@ -26,7 +26,7 @@ import static BackEnd.Rentary.AutomaticTask.Service.RentAdjustmentUtils.shouldAd
 
 @Service
 @RequiredArgsConstructor
-public class ScheduledRentAdjustmentService {
+public class RentAdjustmentScheduler {
 
     private final IContractRepository contractRepository;
     private final BcraApiService bcraApiService;

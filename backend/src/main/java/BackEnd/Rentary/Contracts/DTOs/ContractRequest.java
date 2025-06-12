@@ -6,6 +6,7 @@ import BackEnd.Rentary.Contracts.Validation.ValidContractDates;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -32,5 +33,6 @@ public record ContractRequest(
         @NotNull(message = "Campo requerido.")
         double adjustmentPercentage,
         @NotNull(message = "Campo requerido.")
-        AdjustmentType adjustmentType
+        AdjustmentType adjustmentType,
+        LocalDate lastAdjustmentDate
 ) {}

@@ -56,7 +56,7 @@ public class Contract {
     private double currentRent;
     @Column(nullable = false)
     private String createdBy;
-    @Column()
+    @Column(nullable = true)
     private LocalDate lastAdjustmentDate;
     @ElementCollection
     @CollectionTable(
