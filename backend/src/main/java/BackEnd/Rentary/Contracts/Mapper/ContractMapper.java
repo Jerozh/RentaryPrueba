@@ -10,6 +10,7 @@ import BackEnd.Rentary.Properties.Entities.Property;
 import BackEnd.Rentary.Tenants.entities.Tenants;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class ContractMapper {
         contract.setDeadline(request.deadline());
         contract.setAdjustmentPercentage(request.adjustmentPercentage());
         contract.setAdjustmentType(request.adjustmentType());
+        contract.setLastAdjustmentDate(request.lastAdjustmentDate());
         return contract;
     }
 
@@ -75,7 +77,8 @@ public class ContractMapper {
                 contract.isActive(),
                 contract.getAdjustmentPercentage(),
                 AdjustmentType.getLabel(contract.getAdjustmentType()),
-                documentDtos
+                documentDtos,
+                contract.getLastAdjustmentDate()
         );
     }
 
