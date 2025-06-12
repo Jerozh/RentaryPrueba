@@ -2,10 +2,6 @@ package BackEnd.Rentary.AutomaticTask;
 
 import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Contracts.Respository.IContractRepository;
-import BackEnd.Rentary.Payments.Entities.Payment;
-import BackEnd.Rentary.Payments.Enums.PaymentStatus;
-import BackEnd.Rentary.Payments.Repository.PaymentRepository;
-import BackEnd.Rentary.Payments.Utils.PaymentCalculationUtil;
 import BackEnd.Rentary.Properties.Entities.Property;
 import BackEnd.Rentary.Properties.Enums.PropertyStatus;
 import BackEnd.Rentary.Properties.Repository.PropertyRepository;
@@ -23,7 +19,6 @@ public class ContractStatusScheduler {
 
     private final IContractRepository contractRepository;
     private final PropertyRepository propertyRepository;
-    private final PaymentRepository paymentRepository;
 
     @Transactional
     @Scheduled(cron = "0 0 4 * * ?", zone = "UTC")
@@ -41,14 +36,7 @@ public class ContractStatusScheduler {
                 propertyRepository.save(property);
             }
         }
-        List<Payment> pendingPayments = paymentRepository.findByStatus(PaymentStatus.PENDIENTE);
 
-        for (Payment payment : pendingPayments) {
-            if (PaymentCalculationUtil.isPaymentOverdue(payment, today)) {
-                payment.setStatus(PaymentStatus.VENCIDO);
-                paymentRepository.save(payment);
-            }
-
-        }
     }
 }
+

@@ -2,7 +2,6 @@ package BackEnd.Rentary.AutomaticTask.Service;
 
 
 import BackEnd.Rentary.BCRA.Service.BcraApiService;
-import BackEnd.Rentary.BCRA.Util.Calcs;
 import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Contracts.Enums.AdjustmentType;
 import BackEnd.Rentary.Contracts.Respository.IContractRepository;

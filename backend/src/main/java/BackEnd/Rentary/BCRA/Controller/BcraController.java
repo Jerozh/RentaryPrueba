@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import static BackEnd.Rentary.BCRA.Util.Calcs.calculateAdjustedRent;
+import static BackEnd.Rentary.AutomaticTask.Service.Calcs.calculateAdjustedRent;
 
 
 

@@ -1,4 +1,4 @@
-package BackEnd.Rentary.BCRA.Util;
+package BackEnd.Rentary.AutomaticTask.Service;
 
 import BackEnd.Rentary.Contracts.Entity.Contract;
 import BackEnd.Rentary.Contracts.Enums.AdjustmentType;

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static BackEnd.Rentary.AutomaticTask.Service.RentAdjustmentUtils.shouldAdjustRent;
@@ -28,15 +29,17 @@ public class CreatePaymentScheduler {
 
     @Scheduled(cron = "0 0 5 1 * *", zone = "UTC")
     @Transactional
-    public void updatePayments(){
-
+    public void updatePayments() {
         List<Contract> activeContracts = contractRepository.findByActiveTrue();
         LocalDate now = LocalDate.now();
 
-        for (Contract contract : activeContracts){
-           if (shouldAdjustRent(contract)) {
-                    continue;
-                }
+        List<Payment> paymentsToSave = new ArrayList<>();
+
+        for (Contract contract : activeContracts) {
+            if (shouldAdjustRent(contract)) {
+                continue;
+            }
+
             int dayOfMonth = contract.getDeadline();
             int safeDay = Math.min(dayOfMonth, now.lengthOfMonth());
             LocalDate dueDate = LocalDate.of(now.getYear(), now.getMonth(), safeDay);
@@ -44,6 +47,7 @@ public class CreatePaymentScheduler {
             if (paymentRepository.existsByContractAndDueDate(contract, dueDate)) {
                 continue;
             }
+
             Payment payment = PaymentFactory.createPaymentEntity(
                     contract,
                     BigDecimal.valueOf(contract.getCurrentRent()),
@@ -57,7 +61,11 @@ public class CreatePaymentScheduler {
 
             payment.setPaymentDate(dueDate);
             payment.setStatus(PaymentStatus.PENDIENTE);
-            paymentRepository.save(payment);
-            }
+            paymentsToSave.add(payment);
+        }
+
+        if (!paymentsToSave.isEmpty()) {
+            paymentRepository.saveAll(paymentsToSave);
         }
     }
+}
